@@ -7,7 +7,7 @@
         </v-list>
         <template v-slot:append>
             <div class="pa-2">
-                <v-btn block flat="tonal" color="grey" @click="logout" :prepend-icon="mdiLogout" text="logout"/>
+                <v-btn block variant="flat" color="grey" @click="logout" :prepend-icon="mdiLogout" text="logout"/>
             </div>
         </template>
     </v-navigation-drawer>
