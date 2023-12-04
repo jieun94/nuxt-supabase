@@ -18,7 +18,7 @@ export default defineNuxtConfig({
       }
     }
   },
-  modules: ['@nuxtjs/supabase', '@pinia/nuxt'],
+  modules: ['@nuxtjs/supabase'],
   supabase: {
      redirectOptions: {
        login: '/login',
