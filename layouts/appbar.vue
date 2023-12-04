@@ -18,7 +18,7 @@ const supabase = useSupabaseClient()
 const router = useRouter()
 
 const nav = [
-    {title: '게시판', icon: 'mdi-view-dashboard', link: '/'},
+    {title: '게시판', icon: 'mdi-view-dashboard', link: '/board'},
     {title: '내정보', icon: 'mdi-account-box', link: '/account'}
 ]
 async function logout() {
