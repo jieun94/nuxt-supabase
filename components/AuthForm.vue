@@ -3,9 +3,9 @@
         <v-card-title>{{props.title}}</v-card-title>
         <v-card-text>
             <v-form>
-                <v-text-field v-model="user.email" :prepend-icon="mdiAccount" label="ID"/>
-                <v-text-field v-model="user.password" :prepend-icon="mdiLock" label="PASSWORD"/>
-                <v-text-field v-if="props.title !== 'Login'" v-model="user.phone" :prepend-icon="mdiPhone" label="PHONE"/>
+                <v-text-field v-model="user.email" prepend-icon="mdi-account" label="ID"/>
+                <v-text-field v-model="user.password" prepend-icon="mdi-lock" label="PASSWORD"/>
+                <v-text-field v-if="props.title !== 'Login'" v-model="user.phone" prepend-icon="mdi-phone" label="PHONE"/>
                 <v-btn block color="primary" text="login" variant="flat" @click="submitHandler(user)"/>
             </v-form>
         </v-card-text>
@@ -14,8 +14,8 @@
 
 <script setup lang="ts">
 import {reactive} from "vue";
-import {mdiAccount, mdiLock, mdiPhone} from "@mdi/js";
 import {useRouter} from "vue-router";
+import {useUserStore} from "../stores/user";
 
 const props = defineProps({
     title: {
@@ -25,6 +25,7 @@ const props = defineProps({
 })
 const client = useSupabaseClient()
 const router = useRouter()
+const store = useUserStore()
 
 const user = reactive({
     email: undefined,
@@ -43,6 +44,9 @@ async function submitHandler(params:any) {
 
     if (error) {
         alert(error.message)
+    }
+    if (props.title === 'Login') {
+        store.getUser()
     }
     router.push('/')
 }

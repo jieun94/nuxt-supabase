@@ -4,6 +4,9 @@
             <v-col cols="12">
                 {{detail}}
             </v-col>
+            <v-col cols="auto">
+                <v-btn color="secondary" text="수정" @click="update"/>
+            </v-col>
         </v-row>
     </v-container>
 </template>
@@ -22,6 +25,9 @@ async function getDetail() {
         .eq('idx', route.params.id)
         .single()
     detail.value = data
+}
+function update() {
+
 }
 
 onMounted(() => {

@@ -5,12 +5,23 @@
             :items-per-page="table.itemsPerPage"
             :items="table.items"
             :headers="table.header"
+            :loading="table.loading"
             @click:row="getDetail">
             <template #item.title="{item}">
                 {{item.board_detail.title}}
             </template>
+            <template #item.reg_id="{item}">
+                {{item.profiles.nickname}}
+            </template>
             <template #bottom>
-                <v-pagination rounded="circle"></v-pagination>
+                <v-row justify="end">
+                    <v-col cols="12">
+                        <v-pagination rounded="circle"></v-pagination>
+                    </v-col>
+                    <v-col cols="auto">
+                        <v-btn color="primary" variant="flat" text="등록" @click="router.push('/board/insert')"/>
+                    </v-col>
+                </v-row>
             </template>
         </v-data-table>
     </v-container>
@@ -25,6 +36,7 @@ const router = useRouter()
 const config = useRuntimeConfig()
 const client = useSupabaseClient()
 const table = reactive({
+    loading: false,
     page: 1,
     itemsPerPage: 10,
     header: [
@@ -35,17 +47,20 @@ const table = reactive({
     items: []
 })
 async function getBoardList() {
+    table.loading = true
     const {data, error} = await client
         .from('board_list')
         .select(`
         idx,
-        reg_id,
+        profiles(nickname),
         created_at,
         board_detail(title)`)
+        .eq('use', true)
     if (error) {
         throw error
     }
     table.items = data
+    table.loading = false
 }
 function getDetail(item, data) {
     router.push('/board/'.concat(data.item.idx))
