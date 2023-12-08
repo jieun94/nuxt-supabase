@@ -26,5 +26,8 @@ export default defineNuxtConfig({
        exclude: ['/signup']
      }
   },
+  piniaPersistedstate: {
+    storage: 'sessionStorage'
+  },
   devtools: { enabled: true },
 })

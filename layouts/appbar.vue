@@ -13,9 +13,11 @@
 
 <script setup lang="ts">
 import {useRouter} from "vue-router";
+import {useUserStore} from "../stores/user";
 // @ts-ignore
 const supabase = useSupabaseClient()
 const router = useRouter()
+const store = useUserStore()
 
 const nav = [
     {title: '게시판', icon: 'mdi-view-dashboard', link: '/board'},
@@ -23,7 +25,8 @@ const nav = [
 ]
 async function logout() {
     const {error} = await supabase.auth.signOut()
-    router.push('/login')
+    sessionStorage.clear()
+    await router.push('/login')
 }
 </script>
 

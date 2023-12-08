@@ -15,6 +15,15 @@ export default defineNuxtPlugin((NuxtApp) => {
             sets: {
                 mdi
             }
+        },
+        theme: {
+            themes: {
+                light: {
+                    colors: {
+                        background: '#f3f3f3',
+                    }
+                }
+            }
         }
     });
 
